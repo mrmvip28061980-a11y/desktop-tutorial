@@ -2,6 +2,11 @@ const ADMIN_PASSWORD = "mazen";
 const STORE_WHATSAPP = "201101729109";
 const STORE_PHONE = "01275026300";
 
+// Supabase connection (the publishable key is safe to use in browser code when RLS is configured).
+const SUPABASE_URL = "https://nfrfnebuxnalemakrvqk.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_avik8uqkhUOUKZ90oHkP2Q_of-jOHhe";
+const supabase = window.supabase?.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
 const defaultProducts = [
   { id: 1, nameAr: "POLO", nameEn: "POLO", price: 250, oldPrice: 350, discount: 10, image: "assets/polo.jpg", category: "original", gender: "men" },
   { id: 2, nameAr: "خمره", nameEn: "Khamrah", price: 400, oldPrice: 600, discount: 5, image: "assets/khamrah.jpg", category: "original", gender: "unisex" }
@@ -25,15 +30,83 @@ const translations = {
 let lang = localStorage.getItem("royal_oud_lang") || "ar";
 let products = JSON.parse(localStorage.getItem("royal_oud_products") || "null");
 if (!Array.isArray(products) || products.length === 0) products = defaultProducts;
-products = products.map(p => ({...p, nameAr: p.nameAr ?? p.name ?? "", nameEn: p.nameEn ?? p.nameAr ?? p.name ?? "", category: p.category ?? "", gender: p.gender ?? "unisex"}));
+products = products.map(p => ({...p, nameAr: p.nameAr ?? p.name_ar ?? p.name ?? "", nameEn: p.nameEn ?? p.name_en ?? p.nameAr ?? p.name ?? "", category: p.category ?? "", gender: p.gender ?? "unisex", image: p.image ?? ""}));
 let cart = JSON.parse(localStorage.getItem("royal_oud_cart") || "[]");
 let orders = JSON.parse(localStorage.getItem("royal_oud_orders") || "[]");
+let supabaseReady = Boolean(supabase);
 let activeCategory = "all";
 let searchTerm = "";
 
 const $ = id => document.getElementById(id);
 const t = key => translations[lang][key] ?? key;
 function save(){ localStorage.setItem("royal_oud_products", JSON.stringify(products)); localStorage.setItem("royal_oud_cart", JSON.stringify(cart)); localStorage.setItem("royal_oud_orders", JSON.stringify(orders)); }
+
+function normalizeDbProduct(p){
+  return {
+    id: p.id,
+    nameAr: p.nameAr ?? p.name_ar ?? p.name ?? "",
+    nameEn: p.nameEn ?? p.name_en ?? p.nameAr ?? p.name_en ?? p.name ?? "",
+    price: Number(p.price ?? 0),
+    oldPrice: Number(p.oldPrice ?? p.old_price ?? 0),
+    discount: Number(p.discount ?? 0),
+    image: p.image ?? "",
+    category: p.category ?? "",
+    gender: p.gender ?? "unisex"
+  };
+}
+
+function dbProductPayload(p){
+  return {
+    id: p.id,
+    name_ar: p.nameAr || "",
+    name_en: p.nameEn || p.nameAr || "",
+    price: Number(p.price || 0),
+    old_price: Number(p.oldPrice || 0),
+    discount: Number(p.discount || 0),
+    image: p.image || "",
+    category: p.category || "",
+    gender: p.gender || "unisex"
+  };
+}
+
+async function loadProductsFromSupabase(){
+  if(!supabaseReady) return;
+  try{
+    const {data, error} = await supabase.from("products").select("*").order("created_at", {ascending:true});
+    if(error) throw error;
+    const remote = (data || []).map(normalizeDbProduct);
+    if(remote.length === 0){
+      // The table is empty: put the store's starter products in Supabase once.
+      const seed = products.length ? products : defaultProducts;
+      const {data: inserted, error: insertError} = await supabase.from("products").insert(seed.map(dbProductPayload)).select();
+      if(insertError) throw insertError;
+      products = (inserted || seed).map(normalizeDbProduct);
+    } else {
+      products = remote;
+    }
+    save();
+    renderProducts();
+    renderAdminProducts();
+  }catch(err){
+    console.error("Supabase products error:", err);
+    // Keep the local products visible if RLS/schema is not ready yet.
+  }
+}
+
+async function insertProductToSupabase(product){
+  if(!supabaseReady) return true;
+  const {data, error} = await supabase.from("products").insert(dbProductPayload(product)).select().single();
+  if(error){ console.error("Supabase insert error:", error); alert("لم يتم حفظ المنتج في قاعدة البيانات. تأكد من سياسات RLS في جدول products."); return false; }
+  if(data) product.id = data.id;
+  return true;
+}
+
+async function deleteProductFromSupabase(id){
+  if(!supabaseReady) return true;
+  const {error} = await supabase.from("products").delete().eq("id", id);
+  if(error){ console.error("Supabase delete error:", error); alert("لم يتم حذف المنتج من قاعدة البيانات. تأكد من سياسة DELETE في RLS."); return false; }
+  return true;
+}
 function normalizePhone(phone){ let p=String(phone||"").replace(/[^\d+]/g,""); if(p.startsWith("+"))p=p.slice(1); if(p.startsWith("0"))p="20"+p.slice(1); return p; }
 function makeOrderCode(){ return "EOM-" + Date.now().toString().slice(-8); }
 function money(n){ return Number(n).toLocaleString(lang === "ar" ? "ar-EG" : "en-US") + (lang === "ar" ? " جنيه" : " EGP"); }
@@ -96,7 +169,13 @@ function renderAdminProducts(){
   const box=$("adminProducts"); if(!box)return;
   box.innerHTML=`<h3>${t("currentProducts")}</h3>`+products.map(p=>`<div class="admin-product"><img src="${p.image}"><div class="admin-info"><strong>${productName(p)}</strong><div>${money(p.price)}${p.oldPrice?` — ${t("old")} ${money(p.oldPrice)}`:""}</div><small>${categoryLabel(p.category) ? categoryLabel(p.category) + " • " : ""}${genderLabel(p.gender)}</small></div><button class="delete-btn" onclick="deleteProduct(${p.id})">${t("delete")}</button></div>`).join("");
 }
-function deleteProduct(id){ if(!confirm(t("deleteConfirm")))return; products=products.filter(p=>p.id!==id); save(); renderProducts(); renderAdminProducts(); }
+async function deleteProduct(id){
+  if(!confirm(t("deleteConfirm")))return;
+  const ok = await deleteProductFromSupabase(id);
+  if(!ok) return;
+  products=products.filter(p=>p.id!==id);
+  save(); renderProducts(); renderAdminProducts();
+}
 
 function renderAdminOrders(){
   const box=$("adminOrders"); if(!box)return;
@@ -111,7 +190,7 @@ function contactCustomer(code,status){
 
 function adminLogin(e){e.preventDefault(); if($("adminPassword").value!==ADMIN_PASSWORD)return alert(t("invalidPass")); hide("adminLoginModal"); show("adminModal"); renderAdminProducts(); renderAdminOrders();}
 
-function addProduct(e){
+async function addProduct(e){
   e.preventDefault();
   const nameAr=$("newProductNameAr").value.trim(), nameEn=$("newProductNameEn").value.trim() || nameAr;
   const price=Number($("newProductPrice").value), oldPrice=Number($("newProductOldPrice").value)||0, discount=Number($("newProductDiscount").value)||0;
@@ -119,8 +198,11 @@ function addProduct(e){
   if(!nameAr || !price) return alert(t("fillProduct"));
   if(!file) return alert(t("imageRequired"));
   const reader=new FileReader();
-  reader.onload=()=>{
-    products.unshift({id:Date.now(),nameAr,nameEn,price,oldPrice,discount,image:reader.result,category,gender});
+  reader.onload=async()=>{
+    const product={id:Date.now(),nameAr,nameEn,price,oldPrice,discount,image:reader.result,category,gender};
+    const ok=await insertProductToSupabase(product);
+    if(!ok) return;
+    products.unshift(product);
     save(); renderProducts(); renderAdminProducts(); e.target.reset();
   };
   reader.readAsDataURL(file);
@@ -128,6 +210,7 @@ function addProduct(e){
 
 document.addEventListener("DOMContentLoaded",()=>{
   renderProducts(); renderCart(); renderAdminOrders(); applyLanguage();
+  loadProductsFromSupabase();
   $("languageToggle")?.addEventListener("click",toggleLanguage);
   $("searchInput")?.addEventListener("input",e=>{searchTerm=e.target.value;renderProducts();});
   document.querySelectorAll(".filter-btn").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");activeCategory=btn.dataset.filter;renderProducts();}));
