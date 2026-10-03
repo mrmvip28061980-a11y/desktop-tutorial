@@ -3,10 +3,27 @@ const STORE_WHATSAPP = "201101729109";
 const STORE_PHONE = "01275026300";
 
 const defaultProducts = [
-  { id: 1, nameAr: "POLO", nameEn: "POLO", price: 250, oldPrice: 350, discount: 10, image: "assets/polo.jpg", category: "original", gender: "men" },
-  { id: 2, nameAr: "خمره", nameEn: "Khamrah", price: 400, oldPrice: 600, discount: 5, image: "assets/khamrah.jpg", category: "original", gender: "unisex" }
+  { id: 118, nameAr: "لافيرن سينس - طقم عطر وكريم", nameEn: "Laverne Sense Gift Set", price: 2400, oldPrice: 0, discount: 0, image: "assets/laverne_sense.jpg", category: "original", gender: "women" },
+  { id: 116, nameAr: "يارا كاندي", nameEn: "Yara Candy", price: 1300, oldPrice: 0, discount: 0, image: "assets/yara_candy.jpg", category: "original", gender: "women" },
+  { id: 117, nameAr: "خمرة دخان", nameEn: "Khamrah Dukhan", price: 1780, oldPrice: 0, discount: 0, image: "assets/khamrah_dukhan.jpg", category: "original", gender: "men" },
+  { id: 101, nameAr: "نود كورال دايموند", nameEn: "Nude Coral Diamond", price: 2100, oldPrice: 0, discount: 0, image: "assets/nude_coral_diamond.jpg", category: "original", gender: "women" },
+  { id: 102, nameAr: "بينك دايموند ساكورا", nameEn: "Pink Diamond Sakura", price: 2100, oldPrice: 0, discount: 0, image: "assets/pink_diamond_sakura.jpg", category: "original", gender: "women" },
+  { id: 103, nameAr: "بيانكو لاتيه", nameEn: "Bianco Latte", price: 1700, oldPrice: 0, discount: 0, image: "assets/bianco_latte.jpg", category: "original", gender: "unisex" },
+  { id: 105, nameAr: "نجدية", nameEn: "Najdia", price: 800, oldPrice: 0, discount: 0, image: "assets/najdia.jpg", category: "original", gender: "men" },
+  { id: 106, nameAr: "عشق الشيوخ جولد", nameEn: "Ishq Al Shuyukh Gold", price: 1850, oldPrice: 0, discount: 0, image: "assets/ishq_al_shuyukh_gold.jpg", category: "original", gender: "men" },
+  { id: 108, nameAr: "خمرة قهوة", nameEn: "Khamrah Qahwa", price: 1500, oldPrice: 0, discount: 0, image: "assets/khamrah_qahwa.jpg", category: "original", gender: "male" },
+  { id: 109, nameAr: "قائد الفرسان", nameEn: "Qaed Al Fursan", price: 1500, oldPrice: 0, discount: 0, image: "assets/qaed_al_fursan.jpg", category: "original", gender: "male" },
+  { id: 110, nameAr: "أمير العود إنتنس عود", nameEn: "Ameer Al Oudh Intense Oud", price: 1235, oldPrice: 0, discount: 0, image: "assets/ameer_al_oudh.jpg", category: "original", gender: "male" },
+  { id: 112, nameAr: "عود الليل", nameEn: "Oud Al Layl", price: 1100, oldPrice: 0, discount: 0, image: "assets/oud_al_layl.jpg", category: "original", gender: "male" },
+  { id: 113, nameAr: "شيخ الشيوخ لوكس إديشن", nameEn: "Sheikh Al Shuyukh Luxe Edition", price: 950, oldPrice: 0, discount: 0, image: "assets/sheikh_shuyukh_luxe.jpg", category: "original", gender: "male" },
+  { id: 114, nameAr: "إبراهيم القرشي", nameEn: "Ibrahim Al Qurashi", price: 1100, oldPrice: 0, discount: 0, image: "assets/ibrahim_al_qurashi_red.jpg", category: "original", gender: "male" },
+  { id: 115, nameAr: "أسد لطافة", nameEn: "Lattafa Asad", price: 1300, oldPrice: 0, discount: 0, image: "assets/lattafa_asad.jpg", category: "original", gender: "male" }
 ];
 
+const removedProduct = p => {
+  const name = `${p.nameAr || ""} ${p.nameEn || ""}`.toLowerCase().replace(/[\s_-]+/g, "");
+  return name.includes("hawas") || name.includes("هوس") || name.includes("هوايس") || name.includes("9pm") || name.includes("9بيام") || name.includes("9بيإم");
+};
 const translations = {
   ar: {
     dir: "rtl", lang: "ar", siteTag: "عطور شرقية فاخرة", call: "اتصل بنا", admin: "تحكم الإدارة", cart: "السلة",
@@ -22,14 +39,45 @@ const translations = {
   }
 };
 
-const SUPABASE_URL = "https://tsaniabyiorcjxxzwxij.supabase.co";
-const SUPABASE_KEY = "sb_publishable_hsj3SiL2b7j3flolL3563A_kn9KA36U";
-const supabaseClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 let lang = localStorage.getItem("royal_oud_lang") || "ar";
 let products = JSON.parse(localStorage.getItem("royal_oud_products") || "null");
-if (!Array.isArray(products) || products.length === 0) products = defaultProducts;
-products = products.map(p => ({...p, nameAr: p.nameAr ?? p.name ?? "", nameEn: p.nameEn ?? p.nameAr ?? p.name ?? "", category: p.category ?? "", gender: p.gender ?? "unisex"}));
+
+if (!Array.isArray(products) || products.length === 0) {
+  products = defaultProducts.filter(p => !removedProduct(p));
+} else {
+  // Remove old products that should no longer appear in the store.
+  // Their product entries and images are removed from this release.
+  products = products.filter(p => {
+    if (removedProduct(p)) return false;
+    const ar = String(p.nameAr || "").trim();
+    const en = String(p.nameEn || "").trim().toLowerCase();
+    const isPolo = ar.includes("بابلو") || en === "polo";
+    const isOldKhamrah400 = (ar === "خمره" || ar === "خمرة" || en === "khamrah") && Number(p.price) === 400;
+    return !isPolo && !isOldKhamrah400;
+  });
+
+  // Keep all other existing products and make sure the current default products are present.
+  const existingIds = new Set(products.map(p => p.id));
+  defaultProducts.forEach(p => {
+    if (!removedProduct(p) && !existingIds.has(p.id)) products.push(p);
+  });
+}
+localStorage.setItem("royal_oud_products", JSON.stringify(products));
+products = products
+  .filter(p => typeof p.image === "string" && p.image.trim() !== "")
+  .map(p => {
+    const normalized = {...p, nameAr: p.nameAr ?? p.name ?? "", nameEn: p.nameEn ?? p.nameAr ?? p.name ?? "", category: p.category ?? "", gender: p.gender ?? "unisex"};
+    if (["male", "رجالي"].includes(String(normalized.gender).toLowerCase())) normalized.gender = "men";
+    if (["female", "حريمي"].includes(String(normalized.gender).toLowerCase())) normalized.gender = "women";
+    const arName = normalized.nameAr || "";
+    const enName = (normalized.nameEn || "").toLowerCase();
+    if (arName.includes("شيخ الشيوخ") || enName.includes("sheikh al shuyukh")) normalized.price = 950;
+    if (arName.includes("عود الليل") || enName.includes("oud al layl")) normalized.price = 1100;
+    if (arName.includes("قائد الفرسان") || enName.includes("qaed al fursan")) normalized.price = 1500;
+    if (arName.includes("شيخ الشيوخ") || enName.includes("sheikh al shuyukh") || arName.includes("عود الليل") || enName.includes("oud al layl") || arName.includes("أمير العود") || enName.includes("ameer al oudh") || arName.includes("قائد الفرسان") || enName.includes("qaed al fursan") || arName.includes("خمرة قهوة") || enName.includes("khamrah qahwa")) normalized.gender = "male";
+    return normalized;
+  });
+localStorage.setItem("royal_oud_products", JSON.stringify(products));
 let cart = JSON.parse(localStorage.getItem("royal_oud_cart") || "[]");
 let orders = JSON.parse(localStorage.getItem("royal_oud_orders") || "[]");
 let activeCategory = "all";
@@ -38,41 +86,11 @@ let searchTerm = "";
 const $ = id => document.getElementById(id);
 const t = key => translations[lang][key] ?? key;
 function save(){ localStorage.setItem("royal_oud_products", JSON.stringify(products)); localStorage.setItem("royal_oud_cart", JSON.stringify(cart)); localStorage.setItem("royal_oud_orders", JSON.stringify(orders)); }
-
-function normalizeRemoteProduct(p){
-  return {
-    id: Number(p.id),
-    nameAr: p.name_ar || "",
-    nameEn: p.name_en || p.name_ar || "",
-    price: Number(p.price) || 0,
-    oldPrice: Number(p.old_price) || 0,
-    discount: Number(p.discount) || 0,
-    category: p.category || "",
-    gender: p.gender || "unisex",
-    image: p.image || ""
-  };
-}
-
-async function loadProductsFromSupabase(){
-  if(!supabaseClient) return;
-  try{
-    const { data, error } = await supabaseClient.from("products").select("*").order("created_at", { ascending:false });
-    if(error) throw error;
-    const remoteProducts = (data || []).map(normalizeRemoteProduct);
-    const remoteIds = new Set(remoteProducts.map(p => p.id));
-    products = [...defaultProducts.filter(p => !remoteIds.has(p.id)), ...remoteProducts];
-    save();
-    renderProducts();
-    renderAdminProducts();
-  }catch(err){
-    console.error("Supabase products load error:", err);
-  }
-}
 function normalizePhone(phone){ let p=String(phone||"").replace(/[^\d+]/g,""); if(p.startsWith("+"))p=p.slice(1); if(p.startsWith("0"))p="20"+p.slice(1); return p; }
 function makeOrderCode(){ return "EOM-" + Date.now().toString().slice(-8); }
-function money(n){ return Number(n).toLocaleString(lang === "ar" ? "ar-EG" : "en-US") + (lang === "ar" ? " جنيه" : " EGP"); }
+function money(n){ if(Number(n) === 0) return lang === "ar" ? "السعر يحدد لاحقًا" : "Price to be announced"; return Number(n).toLocaleString(lang === "ar" ? "ar-EG" : "en-US") + (lang === "ar" ? " جنيه" : " EGP"); }
 function productName(p){ return lang === "ar" ? (p.nameAr || p.nameEn) : (p.nameEn || p.nameAr); }
-function genderLabel(g){ return g === "men" ? t("men") : g === "women" ? t("women") : t("unisexOpt"); }
+function genderLabel(g){ return g === "men" || g === "male" ? t("men") : g === "women" || g === "female" ? t("women") : t("unisexOpt"); }
 function categoryLabel(c){ return c === "blends" ? t("blends") : c === "original" ? t("original") : ""; }
 
 function applyLanguage(){
@@ -91,7 +109,11 @@ function filteredProducts(){
     const text = `${p.nameAr} ${p.nameEn}`.toLowerCase();
     const q = searchTerm.toLowerCase();
     const matchesSearch = !q || text.includes(q) || (categoryLabel(p.category) || "").toLowerCase().includes(q) || genderLabel(p.gender).toLowerCase().includes(q);
-    const matchesCategory = activeCategory === "all" || p.category === activeCategory || p.gender === activeCategory;
+    const gender = String(p.gender || "").toLowerCase();
+    const isMen = ["men", "male", "رجالي"].includes(gender);
+    const isWomen = ["women", "female", "حريمي"].includes(gender);
+    const matchesGender = activeCategory === "men" ? isMen : activeCategory === "women" ? isWomen : false;
+    const matchesCategory = activeCategory === "all" || p.category === activeCategory || matchesGender;
     return matchesSearch && matchesCategory;
   });
 }
@@ -130,16 +152,7 @@ function renderAdminProducts(){
   const box=$("adminProducts"); if(!box)return;
   box.innerHTML=`<h3>${t("currentProducts")}</h3>`+products.map(p=>`<div class="admin-product"><img src="${p.image}"><div class="admin-info"><strong>${productName(p)}</strong><div>${money(p.price)}${p.oldPrice?` — ${t("old")} ${money(p.oldPrice)}`:""}</div><small>${categoryLabel(p.category) ? categoryLabel(p.category) + " • " : ""}${genderLabel(p.gender)}</small></div><button class="delete-btn" onclick="deleteProduct(${p.id})">${t("delete")}</button></div>`).join("");
 }
-async function deleteProduct(id){
-  if(!confirm(t("deleteConfirm")))return;
-  const isRemote = Number(id) > 100000000000;
-  if(isRemote && supabaseClient){
-    const { error } = await supabaseClient.from("products").delete().eq("id", id);
-    if(error){ console.error(error); return alert(lang === "ar" ? "حصلت مشكلة أثناء حذف المنتج." : "There was a problem deleting the product."); }
-  }
-  products=products.filter(p=>p.id!==id);
-  save(); renderProducts(); renderAdminProducts();
-}
+function deleteProduct(id){ if(!confirm(t("deleteConfirm")))return; products=products.filter(p=>p.id!==id); save(); renderProducts(); renderAdminProducts(); }
 
 function renderAdminOrders(){
   const box=$("adminOrders"); if(!box)return;
@@ -154,7 +167,7 @@ function contactCustomer(code,status){
 
 function adminLogin(e){e.preventDefault(); if($("adminPassword").value!==ADMIN_PASSWORD)return alert(t("invalidPass")); hide("adminLoginModal"); show("adminModal"); renderAdminProducts(); renderAdminOrders();}
 
-async function addProduct(e){
+function addProduct(e){
   e.preventDefault();
   const nameAr=$("newProductNameAr").value.trim(), nameEn=$("newProductNameEn").value.trim() || nameAr;
   const price=Number($("newProductPrice").value), oldPrice=Number($("newProductOldPrice").value)||0, discount=Number($("newProductDiscount").value)||0;
@@ -162,27 +175,30 @@ async function addProduct(e){
   if(!nameAr || !price) return alert(t("fillProduct"));
   if(!file) return alert(t("imageRequired"));
   const reader=new FileReader();
-  reader.onload=async()=>{
-    const id=Date.now();
-    const product={id,nameAr,nameEn,price,oldPrice,discount,image:reader.result,category,gender};
-    if(!supabaseClient) return alert(lang === "ar" ? "تعذر الاتصال بقاعدة البيانات." : "Could not connect to the database.");
-    const { error } = await supabaseClient.from("products").insert({
-      id, name_ar:nameAr, name_en:nameEn, price, old_price:oldPrice, discount, category, gender, image:reader.result
-    });
-    if(error){
-      console.error(error);
-      return alert(lang === "ar" ? "المنتج لم يُحفظ في قاعدة البيانات. تأكد من إعداد Supabase." : "The product was not saved to the database. Check Supabase setup.");
-    }
-    products.unshift(product);
+  reader.onload=()=>{
+    products.unshift({id:Date.now(),nameAr,nameEn,price,oldPrice,discount,image:reader.result,category,gender});
     save(); renderProducts(); renderAdminProducts(); e.target.reset();
   };
   reader.readAsDataURL(file);
 }
 
-document.addEventListener("DOMContentLoaded",async()=>{
+document.addEventListener("DOMContentLoaded",()=>{
   renderProducts(); renderCart(); renderAdminOrders(); applyLanguage();
-  await loadProductsFromSupabase();
   $("languageToggle")?.addEventListener("click",toggleLanguage);
+  const topMenuBtn = $("topMenuBtn");
+  const topMenuDropdown = $("topMenuDropdown");
+  topMenuBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    topMenuDropdown.hidden = !topMenuDropdown.hidden;
+  });
+  document.addEventListener("click", (e) => {
+    if (topMenuDropdown && !topMenuDropdown.hidden && !topMenuDropdown.contains(e.target) && e.target !== topMenuBtn) {
+      topMenuDropdown.hidden = true;
+    }
+  });
+  $("adminOpen")?.addEventListener("click", () => {
+    topMenuDropdown.hidden = true;
+  });
   $("searchInput")?.addEventListener("input",e=>{searchTerm=e.target.value;renderProducts();});
   document.querySelectorAll(".filter-btn").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");activeCategory=btn.dataset.filter;renderProducts();}));
   $("orderForm")?.addEventListener("submit",submitOrder);
