@@ -80,30 +80,6 @@ products = products
 localStorage.setItem("royal_oud_products", JSON.stringify(products));
 let cart = JSON.parse(localStorage.getItem("royal_oud_cart") || "[]");
 let orders = JSON.parse(localStorage.getItem("royal_oud_orders") || "[]");
-let ordersApiAvailable = true;
-async function loadOrdersFromServer(){
-  try {
-    const r = await fetch("/api/orders", {cache:"no-store"});
-    if(!r.ok) throw new Error("orders api unavailable");
-    const data = await r.json();
-    if(Array.isArray(data)){ orders=data; localStorage.setItem("royal_oud_orders", JSON.stringify(orders)); renderAdminOrders(); }
-    ordersApiAvailable = true;
-  } catch(e) { ordersApiAvailable = false; }
-}
-async function createOrderOnServer(order){
-  const r=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)});
-  if(!r.ok) throw new Error("Could not save order");
-  return r.json();
-}
-async function updateOrderOnServer(code,status){
-  const r=await fetch(`/api/orders/${encodeURIComponent(code)}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status})});
-  if(!r.ok) throw new Error("Could not update order");
-  return r.json();
-}
-async function clearOrdersOnServer(){
-  const r=await fetch("/api/orders",{method:"DELETE"});
-  if(!r.ok) throw new Error("Could not clear orders");
-}
 let activeCategory = "all";
 let searchTerm = "";
 
@@ -161,18 +137,12 @@ function hide(id){$(id)?.classList.remove("show");}
 function buildOrderMessage(o){
   return [t("newOrder"),`Order: ${o.code}`,"",`${t("name")}: ${o.customer.name}`,`${t("phone")}: ${o.customer.phone}`,`${t("email")}: ${o.customer.email||t("notAdded")}`,`${t("area")}: ${o.customer.area}`,`${t("address")}: ${o.customer.address}`,`${t("notes")}: ${o.customer.notes||t("noNotes")}`,"",`${t("ourProducts")}:`,...o.items.map(x=>`- ${x.displayName} × ${x.qty} = ${money(x.price*x.qty)}`),"",`${t("total")}: ${money(o.total)}`].join("\n");
 }
-async function submitOrder(e){
+function submitOrder(e){
   e.preventDefault();
   if(!cart.length)return alert(t("cartEmptyAlert"));
   const o={code:makeOrderCode(),createdAt:new Date().toISOString(),status:"new",items:cart.map(x=>({id:x.id,nameAr:x.nameAr,nameEn:x.nameEn,displayName:productName(x),price:x.price,qty:x.qty})),total:cart.reduce((s,x)=>s+x.price*x.qty,0),customer:{name:$("customerName").value.trim(),phone:$("customerPhone").value.trim(),email:$("customerEmail").value.trim(),area:$("customerArea").value.trim(),address:$("customerAddress").value.trim(),notes:$("customerNotes").value.trim()}};
   if(!o.customer.name||!o.customer.phone||!o.customer.area||!o.customer.address)return alert(t("required"));
-  try {
-    await createOrderOnServer(o);
-    orders.unshift(o); save();
-  } catch(err) {
-    console.error(err);
-    return alert(lang === "ar" ? "حصل خطأ أثناء حفظ الطلب. تأكد أن السيرفر شغال ثم حاول مرة أخرى." : "Could not save the order. Make sure the server is running and try again.");
-  }
+  orders.unshift(o); save();
   const url=`https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(buildOrderMessage(o))}`;
   $("customerOrderCode").textContent=o.code; $("whatsappLink").href=url; $("orderFormArea").hidden=true; $("orderSuccess").hidden=false;
   cart=[]; save(); renderCart(); renderAdminOrders(); window.open(url,"_blank");
@@ -189,10 +159,8 @@ function renderAdminOrders(){
   if(!orders.length){box.innerHTML=`<div class="empty-orders">${t("noOrders")}</div>`;return;}
   box.innerHTML=orders.map(o=>`<div class="order-card"><div class="order-top"><span class="order-code">${o.code}</span><span class="order-status">${o.status === "accepted" ? t("accepted") : o.status === "rejected" ? t("rejected") : t("statusNew")}</span></div><div class="order-info"><div>${t("name")}: ${o.customer.name}</div><div>${t("phone")}: ${o.customer.phone}</div><div>${t("email")}: ${o.customer.email||t("notAdded")}</div><div>${t("area")}: ${o.customer.area}</div><div>${t("address")}: ${o.customer.address}</div><div>${t("total")}: <strong>${money(o.total)}</strong></div></div><div class="order-products"><strong>${t("orderedProducts")}:</strong><div class="ordered-products-list">${o.items.map((x,i)=>`<div class="ordered-product-row"><span>${i+1}. ${x.displayName || x.nameAr || x.nameEn}</span><span>${t("quantityShort")} ${x.qty}</span></div>`).join("")}</div></div><div class="order-actions"><button class="accept-btn" onclick="contactCustomer('${o.code}','accepted')">${t("accept")}</button><button class="reject-btn" onclick="contactCustomer('${o.code}','rejected')">${t("reject")}</button></div></div>`).join("");
 }
-async function contactCustomer(code,status){
-  const o=orders.find(x=>x.code===code); if(!o)return;
-  try { await updateOrderOnServer(code,status); o.status=status; save(); renderAdminOrders(); }
-  catch(err) { console.error(err); return alert(lang === "ar" ? "تعذر تحديث حالة الطلب." : "Could not update the order status."); }
+function contactCustomer(code,status){
+  const o=orders.find(x=>x.code===code); if(!o)return; o.status=status; save(); renderAdminOrders();
   const text=status==="accepted" ? `Hello ${o.customer.name}, your order ${o.code} from El OUD ELMALAKI has been accepted.` : `Hello ${o.customer.name}, we are sorry that we could not accept your order ${o.code} from El OUD ELMALAKI.`;
   const phone=normalizePhone(o.customer.phone); if(phone)window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,"_blank");
 }
@@ -214,7 +182,7 @@ function addProduct(e){
   reader.readAsDataURL(file);
 }
 
-document.addEventListener("DOMContentLoaded",async()=>{
+document.addEventListener("DOMContentLoaded",()=>{
   renderProducts(); renderCart(); renderAdminOrders(); applyLanguage();
   $("languageToggle")?.addEventListener("click",toggleLanguage);
   const topMenuBtn = $("topMenuBtn");
@@ -241,9 +209,5 @@ document.addEventListener("DOMContentLoaded",async()=>{
   $("adminOpen")?.addEventListener("click",()=>show("adminLoginModal"));
   $("closeAdminLogin")?.addEventListener("click",()=>hide("adminLoginModal"));
   $("closeAdmin")?.addEventListener("click",()=>hide("adminModal"));
-  $("clearOrders")?.addEventListener("click",async()=>{
-    if(!confirm(t("clearConfirm"))) return;
-    try { await clearOrdersOnServer(); orders=[]; save(); renderAdminOrders(); }
-    catch(err) { console.error(err); alert(lang === "ar" ? "تعذر مسح الطلبات." : "Could not clear orders."); }
-  });
+  $("clearOrders")?.addEventListener("click",()=>{if(confirm(t("clearConfirm"))){orders=[];save();renderAdminOrders();}});
 });

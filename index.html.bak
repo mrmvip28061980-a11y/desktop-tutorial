@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El OUD ELMALAKI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo.jpg" alt="El OUD ELMALAKI">
+      <div><h1>El OUD ELMALAKI</h1><p data-i18n="siteTag">عطور شرقية فاخرة</p></div>
+    </div>
+    <div class="actions">
+      <button id="cartOpen" class="cart-btn"><span data-i18n="cart">السلة</span> <span id="cartCount">0</span></button>
+      <button id="languageToggle" class="lang-btn">English</button>
+    </div>
+    <div class="top-menu">
+      <button id="topMenuBtn" class="top-menu-btn" aria-label="القائمة">⋮</button>
+      <div id="topMenuDropdown" class="top-menu-dropdown" hidden>
+        <a class="phone-btn" href="tel:01275026300" data-i18n="call">اتصل بنا</a>
+        <button id="adminOpen" class="admin-btn" data-i18n="admin">تحكم الإدارة</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay">
+      <p class="small-title">EL OUD ELMALAKI</p>
+      <h2 data-i18n="heroTitle">عطور تليق بذوقك</h2>
+      <p data-i18n="heroText">اختار عطرك المفضل واستمتع بتجربة تسوق بسيطة وسريعة.</p>
+      <a href="#products" class="shop-btn" data-i18n="browse">تصفح المنتجات</a>
+    </div>
+  </section>
+
+  <main id="products" class="container">
+    <div class="section-head">
+      <div><span data-i18n="ourProducts">منتجاتنا</span><h2 data-i18n="latest">أحدث المنتجات</h2></div>
+      <div class="discount-note" data-i18n="offers">عروض مميزة</div>
+    </div>
+
+    <div class="catalog-tools">
+      <div class="search-box"><span>⌕</span><input id="searchInput" data-i18n-placeholder="search" placeholder="ابحث عن منتج..."></div>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all" data-i18n="all">الكل</button>
+        <button class="filter-btn" data-filter="original" data-i18n="original">أوريجينال</button>
+        <button class="filter-btn" data-filter="blends" data-i18n="blends">تركيبات</button>
+        <button class="filter-btn" data-filter="men" data-i18n="men">رجالي</button>
+        <button class="filter-btn" data-filter="women" data-i18n="women">حريمي</button>
+      </div>
+    </div>
+
+    <div id="productsGrid" class="products-grid"></div>
+  </main>
+
+  <footer>
+    <div class="footer-brand"><img src="assets/logo.jpg" alt="El OUD ELMALAKI"><div><strong>El OUD ELMALAKI</strong><p data-i18n="footer">عطور وعود فاخرة</p></div></div>
+    <a href="tel:01275026300">01275026300</a><p>© 2026 El OUD ELMALAKI</p>
+  
+<div class="footer-credit">© 2026 Royal Oud Store — الموقع بواسطة <strong>mazen</strong></div>
+
+<div class="footer-social-icons" aria-label="التواصل مع المتجر">
+  <a class="social-icon" href="https://wa.me/201101729109" target="_blank" rel="noopener noreferrer" aria-label="واتساب">
+    <img src="assets/whatsapp.svg" alt="واتساب">
+  </a>
+  <a class="social-icon" href="https://www.instagram.com/el_oud.el_malaki/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <img src="assets/instagram.svg" alt="Instagram">
+  </a>
+</div>
+
+</footer>
+
+  <div id="cartModal" class="modal"><div class="modal-box">
+    <button class="close" id="closeCart">×</button><h2 data-i18n="cartTitle">سلة المشتريات</h2><div id="cartItems"></div>
+    <div class="cart-total"><span data-i18n="total">الإجمالي</span>: <strong id="cartTotal">0 جنيه</strong></div>
+    <div id="orderFormArea"><h3 data-i18n="yourData">بيانات طلبك</h3><form id="orderForm">
+      <label data-i18n="name">الاسم</label><input id="customerName" required data-i18n-placeholder="namePh" placeholder="اكتب اسمك">
+      <label data-i18n="phone">رقم الموبايل</label><input id="customerPhone" type="tel" required data-i18n-placeholder="phonePh" placeholder="01xxxxxxxxx">
+      <label data-i18n="email">الإيميل</label><input id="customerEmail" type="email" data-i18n-placeholder="emailPh" placeholder="example@gmail.com">
+      <label data-i18n="area">المنطقة</label><input id="customerArea" required data-i18n-placeholder="areaPh" placeholder="مثال: مدينة نصر">
+      <label data-i18n="address">العنوان بالتفصيل</label><textarea id="customerAddress" required data-i18n-placeholder="addressPh" placeholder="الشارع، العمارة، الدور، الشقة"></textarea>
+      <label data-i18n="notes">ملاحظات إضافية</label><textarea id="customerNotes" data-i18n-placeholder="notesPh" placeholder="أي ملاحظات على الطلب"></textarea>
+      <button class="checkout-btn" type="submit" data-i18n="checkout">تأكيد الطلب والتواصل عبر واتساب</button>
+    </form></div>
+    <div id="orderSuccess" class="order-success" hidden><h3 data-i18n="registered">تم تسجيل الطلب</h3><p data-i18n="codeText">كود الطلب الخاص بك:</p><strong id="customerOrderCode"></strong><p data-i18n="waReady">تم تجهيز رسالة واتساب بالطلب.</p><a id="whatsappLink" class="checkout-btn" target="_blank" rel="noopener" data-i18n="openWa">فتح واتساب والتواصل مع المتجر</a></div>
+  </div></div>
+
+  <div id="adminLoginModal" class="modal"><div class="modal-box small"><button class="close" id="closeAdminLogin">×</button><h2 data-i18n="login">دخول الإدارة</h2><form id="adminLoginForm"><label data-i18n="password">كلمة المرور</label><input id="adminPassword" type="password" data-i18n-placeholder="password" placeholder="كلمة المرور" required><button class="primary-btn" type="submit" data-i18n="enter">دخول</button></form></div></div>
+
+  <div id="adminModal" class="modal"><div class="modal-box admin-box"><button class="close" id="closeAdmin">×</button>
+    <div class="admin-title"><div><span data-i18n="panel">لوحة التحكم</span><h2 data-i18n="manage">إدارة المنتجات والطلبات</h2></div></div>
+    <div id="adminProducts"></div>
+    <div class="add-product-box">
+      <h3 data-i18n="addProduct">إضافة منتج جديد</h3>
+      <form id="productForm" class="product-form">
+        <label data-i18n="productNameAr">اسم المنتج بالعربي</label><input id="newProductNameAr" required>
+        <label data-i18n="productNameEn">اسم المنتج بالإنجليزي</label><input id="newProductNameEn">
+        <div class="form-grid"><div><label data-i18n="price">السعر</label><input id="newProductPrice" type="number" min="0" required></div><div><label data-i18n="oldPrice">السعر القديم</label><input id="newProductOldPrice" type="number" min="0"></div><div><label data-i18n="discount">الخصم %</label><input id="newProductDiscount" type="number" min="0" max="100"></div></div>
+        <div class="form-grid"><div><label data-i18n="category">القسم</label><select id="newProductCategory"><option value="" data-i18n="noCategoryOpt">بدون قسم</option><option value="original" data-i18n="originalOpt">أوريجينال</option><option value="blends" data-i18n="blendsOpt">تركيبات</option></select></div><div><label data-i18n="gender">الفئة</label><select id="newProductGender"><option value="men" data-i18n="menOpt">رجالي</option><option value="women" data-i18n="womenOpt">حريمي</option><option value="unisex" data-i18n="unisexOpt">رجالي وحريمي</option></select></div></div>
+        <label data-i18n="image">صورة المنتج</label><input id="newProductImage" type="file" accept="image/*" required><small data-i18n="chooseImage">اختار صورة من جهازك</small>
+        <button class="primary-btn" type="submit" data-i18n="addProductBtn">إضافة المنتج</button>
+      </form>
+    </div>
+    <div class="orders-section"><div class="orders-heading"><div><span data-i18n="orders">الطلبات</span><h3 data-i18n="deviceOrders">طلبات هذا الجهاز</h3></div><button id="clearOrders" class="delete-btn" data-i18n="clear">مسح الطلبات</button></div><div id="adminOrders"></div></div>
+  </div></div>
+  <script src="script.js"></script>
+</body>
+</html>
