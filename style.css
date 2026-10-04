@@ -448,3 +448,7 @@ textarea {
   .hero { min-height:290px; height:290px; padding:24px 5%; }
   .hero h2 { font-size:28px; }
 }
+
+.order-result{margin-top:12px;padding:12px 16px;border-radius:10px;font-weight:800;text-align:center;border:1px solid #ddd;background:#f7f7f7}
+.accepted-result{color:#137333;border-color:#b7dfc2;background:#effaf2}
+.rejected-result{color:#b3261e;border-color:#f0b8b3;background:#fff3f2}
