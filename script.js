@@ -1,5 +1,5 @@
 // Supabase uses the internal admin email only in the background. The email is never shown in the login form.
-const INTERNAL_ADMIN_EMAIL = "mrmvip28061980@gmail.com";
+const ADMIN_PASSWORD = "mazen";
 const STORE_WHATSAPP = "201101729109";
 const STORE_PHONE = "01275026300";
 
@@ -212,27 +212,17 @@ async function contactCustomer(code,status){
   const phone=normalizePhone(o.customer.phone); if(phone)window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,"_blank");
 }
 
-async function adminLogin(e){
+function adminLogin(e){
   e.preventDefault();
-  const email=$("adminEmailLogin").value.trim().toLowerCase();
-  if(email !== INTERNAL_ADMIN_EMAIL.toLowerCase()){
-    alert(lang === "ar" ? "الإيميل غير صحيح" : "Incorrect email");
+  const password = $("adminPassword").value;
+  if(password !== ADMIN_PASSWORD){
+    alert(t("invalidPass"));
     return;
   }
-  // Email-only mode: Supabase sends a secure magic-link to the admin email.
-  try {
-    if(!supabaseReady()) throw new Error("Supabase settings are missing");
-    const r=await fetch(`${window.SUPABASE_CONFIG.url.replace(/\/$/,"")}/auth/v1/otp`,{
-      method:"POST",
-      headers:{apikey:window.SUPABASE_CONFIG.anonKey,"Content-Type":"application/json"},
-      body:JSON.stringify({email,create_user:false})
-    });
-    if(!r.ok){ let d=""; try{d=await r.text();}catch{} throw new Error(d); }
-    alert(lang === "ar" ? "تم إرسال رابط دخول آمن إلى الإيميل. افتح الرابط من بريدك للدخول." : "A secure login link was sent to your email. Open it from your inbox to sign in.");
-  } catch(err) {
-    console.error(err);
-    alert(lang === "ar" ? "تعذر إرسال رابط الدخول. تأكد من إعداد Email في Supabase." : "Could not send the login link. Check Email settings in Supabase.");
-  }
+  hide("adminLoginModal");
+  show("adminModal");
+  renderAdminProducts();
+  renderAdminOrders();
 }
 
 function addProduct(e){
