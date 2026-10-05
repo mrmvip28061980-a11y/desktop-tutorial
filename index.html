@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>El OUD ELMALAKI</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2045">
 </head>
 <body>
   <header class="topbar">
@@ -42,13 +42,13 @@
 
     <div class="catalog-tools">
       <div class="search-box"><span>⌕</span><input id="searchInput" data-i18n-placeholder="search" placeholder="ابحث عن منتج..."></div>
-      <div class="category-menu">
-        <button id="categoryMenuBtn" class="category-menu-btn" type="button" aria-expanded="false">
+      <div class="category-menu" style="position:relative;display:block;min-width:210px;z-index:9999;">
+        <button id="categoryMenuBtn" class="category-menu-btn" type="button" aria-expanded="false" style="display:flex!important;width:100%;min-height:48px;background:#d92516!important;color:#fff!important;border:0;border-radius:10px;align-items:center;justify-content:space-between;gap:10px;padding:0 16px;cursor:pointer;font-family:inherit;font-size:16px;font-weight:800;">
           <span class="category-menu-icon">☰</span>
           <span data-i18n="categoryMenu">القائمة</span>
           <span class="category-menu-arrow">⌄</span>
         </button>
-        <div id="categoryMenuDropdown" class="category-menu-dropdown" hidden>
+        <div id="categoryMenuDropdown" class="category-menu-dropdown" hidden style="position:absolute;top:calc(100% + 7px);right:0;width:100%;min-width:210px;background:#fff;border:1px solid #e1d8c9;border-radius:10px;padding:6px;box-shadow:0 12px 28px rgba(0,0,0,.16);z-index:10000;">
           <button class="filter-btn active" data-filter="all" data-i18n="all">الكل</button>
           <button class="filter-btn" data-filter="noCategory" data-i18n="noCategory">بدون قسم</button>
           <button class="filter-btn" data-filter="original" data-i18n="original">أوريجينال</button>
@@ -113,6 +113,6 @@
     <div class="orders-section"><div class="orders-heading"><div><span data-i18n="orders">الطلبات</span><h3 data-i18n="deviceOrders">كل الطلبات المشتركة</h3></div><button id="clearOrders" class="delete-btn" data-i18n="clear">مسح الطلبات</button></div><div id="adminOrders"></div></div>
   </div></div>
   <script src="supabase-config.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=2045"></script>
 </body>
 </html>
