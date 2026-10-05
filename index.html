@@ -86,7 +86,7 @@
     <div id="orderSuccess" class="order-success" hidden><h3 data-i18n="registered">تم تسجيل الطلب</h3><p data-i18n="codeText">كود الطلب الخاص بك:</p><strong id="customerOrderCode"></strong><p data-i18n="waReady">تم تجهيز رسالة واتساب بالطلب.</p><a id="whatsappLink" class="checkout-btn" target="_blank" rel="noopener" data-i18n="openWa">فتح واتساب والتواصل مع المتجر</a></div>
   </div></div>
 
-  <div id="adminLoginModal" class="modal"><div class="modal-box small"><button class="close" id="closeAdminLogin">×</button><h2 data-i18n="login">دخول الإدارة</h2><form id="adminLoginForm"><label data-i18n="password">كلمة المرور</label><input id="adminPassword" type="password" data-i18n-placeholder="password" placeholder="كلمة المرور" required><button class="primary-btn" type="submit" data-i18n="enter">دخول</button></form></div></div>
+  <div id="adminLoginModal" class="modal"><div class="modal-box small"><button class="close" id="closeAdminLogin">×</button><h2 data-i18n="login">دخول الإدارة</h2><form id="adminLoginForm"><label data-i18n="adminEmail">بريد الأدمن الإلكتروني</label><input id="adminEmail" type="email" placeholder="admin@example.com" required><label data-i18n="password">كلمة المرور</label><input id="adminPassword" type="password" data-i18n-placeholder="password" placeholder="كلمة المرور" required><button class="primary-btn" type="submit" data-i18n="enter">دخول</button></form></div></div>
 
   <div id="adminModal" class="modal"><div class="modal-box admin-box"><button class="close" id="closeAdmin">×</button>
     <div class="admin-title"><div><span data-i18n="panel">لوحة التحكم</span><h2 data-i18n="manage">إدارة المنتجات والطلبات</h2></div></div>
@@ -102,8 +102,9 @@
         <button class="primary-btn" type="submit" data-i18n="addProductBtn">إضافة المنتج</button>
       </form>
     </div>
-    <div class="orders-section"><div class="orders-heading"><div><span data-i18n="orders">الطلبات</span><h3 data-i18n="deviceOrders">طلبات هذا الجهاز</h3></div><button id="clearOrders" class="delete-btn" data-i18n="clear">مسح الطلبات</button></div><div id="adminOrders"></div></div>
+    <div class="orders-section"><div class="orders-heading"><div><span data-i18n="orders">الطلبات</span><h3 data-i18n="deviceOrders">كل الطلبات المشتركة</h3></div><button id="clearOrders" class="delete-btn" data-i18n="clear">مسح الطلبات</button></div><div id="adminOrders"></div></div>
   </div></div>
+  <script src="supabase-config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

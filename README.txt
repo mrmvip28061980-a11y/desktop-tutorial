@@ -25,3 +25,6 @@ https://www.instagram.com/maz.e7n/
 
 تم استبدال حسابات Instagram القديمة بحساب واحد فقط:
 https://www.instagram.com/el_oud.el_malaki/
+
+
+تحديث الطلبات المشتركة على GitHub Pages: راجع SETUP_SUPABASE_AR.txt واتبع الخطوات بالترتيب. يجب تعديل supabase-config.js بقيم مشروعك قبل النشر.
