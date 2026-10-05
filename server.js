@@ -4,6 +4,7 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'mazen';
 const DATA_DIR = path.join(__dirname, 'data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 
@@ -25,7 +26,13 @@ function writeOrders(orders) {
   fs.renameSync(tmp, ORDERS_FILE);
 }
 
-app.get('/api/orders', (req, res) => {
+function requireAdmin(req, res, next) {
+  const supplied = String(req.get('X-Admin-Password') || '');
+  if (supplied !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
+  next();
+}
+
+app.get('/api/orders', requireAdmin, (req, res) => {
   res.json(readOrders());
 });
 
@@ -42,7 +49,7 @@ app.post('/api/orders', (req, res) => {
   res.status(201).json(order);
 });
 
-app.patch('/api/orders/:code', (req, res) => {
+app.patch('/api/orders/:code', requireAdmin, (req, res) => {
   const orders = readOrders();
   const index = orders.findIndex(o => o.code === req.params.code);
   if (index < 0) return res.status(404).json({ error: 'Order not found' });
@@ -54,7 +61,7 @@ app.patch('/api/orders/:code', (req, res) => {
   res.json(orders[index]);
 });
 
-app.delete('/api/orders', (req, res) => {
+app.delete('/api/orders', requireAdmin, (req, res) => {
   writeOrders([]);
   res.json({ ok: true });
 });

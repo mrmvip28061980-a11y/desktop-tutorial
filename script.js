@@ -81,39 +81,34 @@ products = products
 localStorage.setItem("royal_oud_products", JSON.stringify(products));
 let cart = JSON.parse(localStorage.getItem("royal_oud_cart") || "[]");
 let orders = [];
+// Admin login is local. The password is NOT sent to Supabase.
+// When the site is served by server.js, the same password is used only
+// for requests to your own Node.js server so the admin can see shared orders.
 let adminAccessToken = sessionStorage.getItem("oud_admin_access_token") || "";
-function supabaseReady(){ return !!(window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url && window.SUPABASE_CONFIG.anonKey && !window.SUPABASE_CONFIG.url.includes("YOUR_PROJECT")); }
-function supabaseHeaders(token, extra={}){
-  if(!supabaseReady()) throw new Error("Supabase is not configured");
-  return { apikey: window.SUPABASE_CONFIG.anonKey, Authorization: `Bearer ${token || window.SUPABASE_CONFIG.anonKey}`, "Content-Type":"application/json", ...extra };
+const ORDERS_API = "/api/orders";
+function adminHeaders(extra={}){
+  return { "Content-Type":"application/json", "X-Admin-Password": adminAccessToken, ...extra };
 }
-async function supabaseRequest(path, options={}){
-  const r = await fetch(`${window.SUPABASE_CONFIG.url.replace(/\/$/, "")}${path}`, options);
-  if(!r.ok){ let detail=""; try{ detail=await r.text(); }catch{} throw new Error(`Supabase request failed (${r.status}) ${detail}`); }
+async function apiRequest(path, options={}){
+  const r = await fetch(path, options);
+  if(!r.ok){ let detail=""; try{detail=await r.text();}catch{} throw new Error(`Server request failed (${r.status}) ${detail}`); }
   if(r.status===204) return null;
   const text=await r.text(); return text ? JSON.parse(text) : null;
 }
-function fromSupabaseRow(row){ return {...(row.order_data || {}), code:row.code, status:row.status, createdAt:row.created_at || (row.order_data||{}).createdAt}; }
 async function loadOrdersFromServer(){
   if(!adminAccessToken) throw new Error("Admin login required");
-  const rows=await supabaseRequest("/rest/v1/orders?select=code,status,order_data,created_at&order=created_at.desc",{headers:supabaseHeaders(adminAccessToken)});
-  orders=Array.isArray(rows)?rows.map(fromSupabaseRow):[]; renderAdminOrders();
+  const data=await apiRequest(ORDERS_API,{headers:adminHeaders()});
+  orders=Array.isArray(data)?data:[];
+  renderAdminOrders();
 }
 async function createOrderOnServer(order){
-  const row={code:order.code,status:"new",order_data:order,created_at:order.createdAt};
-  await supabaseRequest("/rest/v1/orders",{method:"POST",headers:supabaseHeaders(null,{Prefer:"return=minimal"}),body:JSON.stringify(row)});
+  await apiRequest(ORDERS_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)});
 }
 async function updateOrderOnServer(code,status){
-  await supabaseRequest(`/rest/v1/orders?code=eq.${encodeURIComponent(code)}`,{method:"PATCH",headers:supabaseHeaders(adminAccessToken,{Prefer:"return=minimal"}),body:JSON.stringify({status})});
+  await apiRequest(`${ORDERS_API}/${encodeURIComponent(code)}`,{method:"PATCH",headers:adminHeaders(),body:JSON.stringify({status})});
 }
 async function clearOrdersOnServer(){
-  await supabaseRequest("/rest/v1/orders?code=not.is.null",{method:"DELETE",headers:supabaseHeaders(adminAccessToken,{Prefer:"return=minimal"})});
-}
-async function signInAdmin(email,password){
-  if(!supabaseReady()) throw new Error("Supabase settings are missing. See SETUP_SUPABASE_AR.txt");
-  const data=await supabaseRequest("/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:window.SUPABASE_CONFIG.anonKey,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
-  if(!data || !data.access_token) throw new Error("Admin login failed");
-  adminAccessToken=data.access_token; sessionStorage.setItem("oud_admin_access_token",adminAccessToken);
+  await apiRequest(ORDERS_API,{method:"DELETE",headers:adminHeaders()});
 }
 let activeCategory = "all";
 let searchTerm = "";
@@ -212,17 +207,25 @@ async function contactCustomer(code,status){
   const phone=normalizePhone(o.customer.phone); if(phone)window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,"_blank");
 }
 
-function adminLogin(e){
+async function adminLogin(e){
   e.preventDefault();
   const password = $("adminPassword").value;
   if(password !== ADMIN_PASSWORD){
     alert(t("invalidPass"));
     return;
   }
+  // Keep the password only in this browser session. It is never sent to Supabase.
+  adminAccessToken = password;
+  sessionStorage.setItem("oud_admin_access_token", adminAccessToken);
   hide("adminLoginModal");
   show("adminModal");
   renderAdminProducts();
-  renderAdminOrders();
+  try {
+    await loadOrdersFromServer();
+  } catch(err) {
+    console.error(err);
+    alert(lang === "ar" ? "تعذر تحميل الطلبات المشتركة. تأكد أن الموقع يعمل على Node.js/VPS." : "Could not load shared orders. Make sure the site is running on Node.js/VPS.");
+  }
 }
 
 function addProduct(e){
