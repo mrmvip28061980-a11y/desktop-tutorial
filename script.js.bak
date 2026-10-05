@@ -1,4 +1,3 @@
-// Supabase uses the internal admin email only in the background. The email is never shown in the login form.
 const ADMIN_PASSWORD = "mazen";
 const STORE_WHATSAPP = "201101729109";
 const STORE_PHONE = "01275026300";
@@ -30,13 +29,13 @@ const translations = {
     dir: "rtl", lang: "ar", siteTag: "عطور شرقية فاخرة", call: "اتصل بنا", admin: "تحكم الإدارة", cart: "السلة",
     heroTitle: "عطور تليق بذوقك", heroText: "اختار عطرك المفضل واستمتع بتجربة تسوق بسيطة وسريعة.", browse: "تصفح المنتجات",
     ourProducts: "منتجاتنا", latest: "أحدث المنتجات", offers: "عروض مميزة", search: "ابحث عن منتج...", all: "الكل", original: "أوريجينال", blends: "تركيبات", men: "رجالي", women: "حريمي",
-    add: "أضف للسلة", cartTitle: "سلة المشتريات", emptyCart: "السلة فارغة", total: "الإجمالي", yourData: "بيانات طلبك", name: "الاسم", phone: "رقم الموبايل", email: "الإيميل", area: "المنطقة", address: "العنوان بالتفصيل", notes: "ملاحظات إضافية", namePh: "اكتب اسمك", phonePh: "01xxxxxxxxx", emailPh: "example@gmail.com", areaPh: "مثال: مدينة نصر", addressPh: "الشارع، العمارة، الدور، الشقة", notesPh: "أي ملاحظات على الطلب", checkout: "تأكيد الطلب والتواصل عبر واتساب", registered: "تم تسجيل الطلب", codeText: "كود الطلب الخاص بك:", waReady: "تم تجهيز رسالة واتساب بالطلب.", openWa: "فتح واتساب والتواصل مع المتجر", login: "دخول الإدارة", adminEmail: "الإيميل", password: "كلمة المرور", enter: "دخول", panel: "لوحة التحكم", manage: "إدارة المنتجات والطلبات", currentProducts: "المنتجات الحالية", addProduct: "إضافة منتج جديد", productNameAr: "اسم المنتج بالعربي", productNameEn: "اسم المنتج بالإنجليزي", price: "السعر", oldPrice: "السعر القديم", discount: "الخصم %", category: "القسم", gender: "الفئة", image: "صورة المنتج", chooseImage: "اختار صورة من جهازك", addProductBtn: "إضافة المنتج", originalOpt: "أوريجينال", noCategoryOpt: "بدون قسم", blendsOpt: "تركيبات", menOpt: "رجالي", womenOpt: "حريمي", unisexOpt: "رجالي وحريمي", delete: "حذف", orders: "الطلبات", orderedProducts: "المنتجات المطلوبة", deviceOrders: "طلبات هذا الجهاز", clear: "مسح الطلبات", noOrders: "لا توجد طلبات محفوظة على هذا الجهاز.", accept: "قبول وإرسال واتساب", reject: "رفض وإرسال واتساب", invalidPass: "كلمة السر غير صحيحة", fillProduct: "اكتب اسم المنتج بالعربي والسعر واختر صورة", imageRequired: "اختار صورة للمنتج", cartEmptyAlert: "السلة فارغة", required: "من فضلك املأ الاسم ورقم الهاتف والمنطقة والعنوان", deleteConfirm: "هل تريد حذف المنتج؟", clearConfirm: "مسح الطلبات المحفوظة على هذا الجهاز؟", remove: "حذف", old: "القديم", notAdded: "غير مضاف", noNotes: "لا يوجد", newOrder: "طلب جديد - El OUD ELMALAKI", quantityShort: "الكمية:", statusNew: "جديد", accepted: "مقبول", rejected: "مرفوض", acceptedOrder: "تم قبول الطلب", rejectedOrder: "تم رفض الطلب", language: "English", footer: "عطور وعود فاخرة"
+    add: "أضف للسلة", cartTitle: "سلة المشتريات", emptyCart: "السلة فارغة", total: "الإجمالي", yourData: "بيانات طلبك", name: "الاسم", phone: "رقم الموبايل", email: "الإيميل", area: "المنطقة", address: "العنوان بالتفصيل", notes: "ملاحظات إضافية", namePh: "اكتب اسمك", phonePh: "01xxxxxxxxx", emailPh: "example@gmail.com", areaPh: "مثال: مدينة نصر", addressPh: "الشارع، العمارة، الدور، الشقة", notesPh: "أي ملاحظات على الطلب", checkout: "تأكيد الطلب والتواصل عبر واتساب", registered: "تم تسجيل الطلب", codeText: "كود الطلب الخاص بك:", waReady: "تم تجهيز رسالة واتساب بالطلب.", openWa: "فتح واتساب والتواصل مع المتجر", login: "دخول الإدارة", password: "كلمة المرور", enter: "دخول", panel: "لوحة التحكم", manage: "إدارة المنتجات والطلبات", currentProducts: "المنتجات الحالية", addProduct: "إضافة منتج جديد", productNameAr: "اسم المنتج بالعربي", productNameEn: "اسم المنتج بالإنجليزي", price: "السعر", oldPrice: "السعر القديم", discount: "الخصم %", category: "القسم", gender: "الفئة", image: "صورة المنتج", chooseImage: "اختار صورة من جهازك", addProductBtn: "إضافة المنتج", originalOpt: "أوريجينال", noCategoryOpt: "بدون قسم", blendsOpt: "تركيبات", menOpt: "رجالي", womenOpt: "حريمي", unisexOpt: "رجالي وحريمي", delete: "حذف", orders: "الطلبات", orderedProducts: "المنتجات المطلوبة", deviceOrders: "طلبات هذا الجهاز", clear: "مسح الطلبات", noOrders: "لا توجد طلبات محفوظة على هذا الجهاز.", accept: "قبول وإرسال واتساب", reject: "رفض وإرسال واتساب", invalidPass: "كلمة السر غير صحيحة", fillProduct: "اكتب اسم المنتج بالعربي والسعر واختر صورة", imageRequired: "اختار صورة للمنتج", cartEmptyAlert: "السلة فارغة", required: "من فضلك املأ الاسم ورقم الهاتف والمنطقة والعنوان", deleteConfirm: "هل تريد حذف المنتج؟", clearConfirm: "مسح الطلبات المحفوظة على هذا الجهاز؟", remove: "حذف", old: "القديم", notAdded: "غير مضاف", noNotes: "لا يوجد", newOrder: "طلب جديد - El OUD ELMALAKI", quantityShort: "الكمية:", statusNew: "جديد", accepted: "مقبول", rejected: "مرفوض", language: "English", footer: "عطور وعود فاخرة"
   },
   en: {
     dir: "ltr", lang: "en", siteTag: "Luxury Oud & Perfumes", call: "Call us", admin: "Admin", cart: "Cart",
     heroTitle: "Perfumes that match your taste", heroText: "Choose your favorite fragrance and enjoy a simple, fast shopping experience.", browse: "Browse products",
     ourProducts: "Our Products", latest: "Latest Products", offers: "Special Offers", search: "Search for a product...", all: "All", original: "Original", blends: "Blends", men: "Men", women: "Women",
-    add: "Add to cart", cartTitle: "Shopping Cart", emptyCart: "Your cart is empty", total: "Total", yourData: "Your Order Details", name: "Name", phone: "Mobile", email: "Email", area: "Area", address: "Full address", notes: "Additional notes", namePh: "Your name", phonePh: "01xxxxxxxxx", emailPh: "example@gmail.com", areaPh: "e.g. Nasr City", addressPh: "Street, building, floor, apartment", notesPh: "Any notes about the order", checkout: "Confirm order & contact us on WhatsApp", registered: "Order registered", codeText: "Your order code:", waReady: "Your WhatsApp order message is ready.", openWa: "Open WhatsApp", login: "Admin Login", adminEmail: "Email", password: "Password", enter: "Login", panel: "Control Panel", manage: "Products & Orders", currentProducts: "Current Products", addProduct: "Add New Product", productNameAr: "Product name in Arabic", productNameEn: "Product name in English", price: "Price", oldPrice: "Old price", discount: "Discount %", category: "Category", gender: "Gender", image: "Product image", chooseImage: "Choose an image from your device", addProductBtn: "Add Product", originalOpt: "Original", noCategoryOpt: "No category", blendsOpt: "Blends", menOpt: "Men", womenOpt: "Women", unisexOpt: "Men & Women", delete: "Delete", orders: "Orders", orderedProducts: "Ordered Products", deviceOrders: "Orders on this device", clear: "Clear orders", noOrders: "No orders saved on this device.", accept: "Accept & WhatsApp", reject: "Reject & WhatsApp", invalidPass: "Incorrect password", fillProduct: "Enter the Arabic name and price, then choose an image", imageRequired: "Choose a product image", cartEmptyAlert: "Your cart is empty", required: "Please fill in name, mobile, area and address", deleteConfirm: "Delete this product?", clearConfirm: "Clear orders saved on this device?", remove: "Remove", old: "Old", notAdded: "Not added", noNotes: "None", newOrder: "New Order - El OUD ELMALAKI", quantityShort: "Qty:", statusNew: "New", accepted: "Accepted", rejected: "Rejected", acceptedOrder: "Order Accepted", rejectedOrder: "Order Rejected", language: "العربية", footer: "Luxury Oud & Perfumes"
+    add: "Add to cart", cartTitle: "Shopping Cart", emptyCart: "Your cart is empty", total: "Total", yourData: "Your Order Details", name: "Name", phone: "Mobile", email: "Email", area: "Area", address: "Full address", notes: "Additional notes", namePh: "Your name", phonePh: "01xxxxxxxxx", emailPh: "example@gmail.com", areaPh: "e.g. Nasr City", addressPh: "Street, building, floor, apartment", notesPh: "Any notes about the order", checkout: "Confirm order & contact us on WhatsApp", registered: "Order registered", codeText: "Your order code:", waReady: "Your WhatsApp order message is ready.", openWa: "Open WhatsApp", login: "Admin Login", password: "Password", enter: "Login", panel: "Control Panel", manage: "Products & Orders", currentProducts: "Current Products", addProduct: "Add New Product", productNameAr: "Product name in Arabic", productNameEn: "Product name in English", price: "Price", oldPrice: "Old price", discount: "Discount %", category: "Category", gender: "Gender", image: "Product image", chooseImage: "Choose an image from your device", addProductBtn: "Add Product", originalOpt: "Original", noCategoryOpt: "No category", blendsOpt: "Blends", menOpt: "Men", womenOpt: "Women", unisexOpt: "Men & Women", delete: "Delete", orders: "Orders", orderedProducts: "Ordered Products", deviceOrders: "Orders on this device", clear: "Clear orders", noOrders: "No orders saved on this device.", accept: "Accept & WhatsApp", reject: "Reject & WhatsApp", invalidPass: "Incorrect password", fillProduct: "Enter the Arabic name and price, then choose an image", imageRequired: "Choose a product image", cartEmptyAlert: "Your cart is empty", required: "Please fill in name, mobile, area and address", deleteConfirm: "Delete this product?", clearConfirm: "Clear orders saved on this device?", remove: "Remove", old: "Old", notAdded: "Not added", noNotes: "None", newOrder: "New Order - El OUD ELMALAKI", quantityShort: "Qty:", statusNew: "New", accepted: "Accepted", rejected: "Rejected", language: "العربية", footer: "Luxury Oud & Perfumes"
   }
 };
 
@@ -80,47 +79,13 @@ products = products
   });
 localStorage.setItem("royal_oud_products", JSON.stringify(products));
 let cart = JSON.parse(localStorage.getItem("royal_oud_cart") || "[]");
-let orders = [];
-let adminAccessToken = sessionStorage.getItem("oud_admin_access_token") || "";
-function supabaseReady(){ return !!(window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url && window.SUPABASE_CONFIG.anonKey && !window.SUPABASE_CONFIG.url.includes("YOUR_PROJECT")); }
-function supabaseHeaders(token, extra={}){
-  if(!supabaseReady()) throw new Error("Supabase is not configured");
-  return { apikey: window.SUPABASE_CONFIG.anonKey, Authorization: `Bearer ${token || window.SUPABASE_CONFIG.anonKey}`, "Content-Type":"application/json", ...extra };
-}
-async function supabaseRequest(path, options={}){
-  const r = await fetch(`${window.SUPABASE_CONFIG.url.replace(/\/$/, "")}${path}`, options);
-  if(!r.ok){ let detail=""; try{ detail=await r.text(); }catch{} throw new Error(`Supabase request failed (${r.status}) ${detail}`); }
-  if(r.status===204) return null;
-  const text=await r.text(); return text ? JSON.parse(text) : null;
-}
-function fromSupabaseRow(row){ return {...(row.order_data || {}), code:row.code, status:row.status, createdAt:row.created_at || (row.order_data||{}).createdAt}; }
-async function loadOrdersFromServer(){
-  if(!adminAccessToken) throw new Error("Admin login required");
-  const rows=await supabaseRequest("/rest/v1/orders?select=code,status,order_data,created_at&order=created_at.desc",{headers:supabaseHeaders(adminAccessToken)});
-  orders=Array.isArray(rows)?rows.map(fromSupabaseRow):[]; renderAdminOrders();
-}
-async function createOrderOnServer(order){
-  const row={code:order.code,status:"new",order_data:order,created_at:order.createdAt};
-  await supabaseRequest("/rest/v1/orders",{method:"POST",headers:supabaseHeaders(null,{Prefer:"return=minimal"}),body:JSON.stringify(row)});
-}
-async function updateOrderOnServer(code,status){
-  await supabaseRequest(`/rest/v1/orders?code=eq.${encodeURIComponent(code)}`,{method:"PATCH",headers:supabaseHeaders(adminAccessToken,{Prefer:"return=minimal"}),body:JSON.stringify({status})});
-}
-async function clearOrdersOnServer(){
-  await supabaseRequest("/rest/v1/orders?code=not.is.null",{method:"DELETE",headers:supabaseHeaders(adminAccessToken,{Prefer:"return=minimal"})});
-}
-async function signInAdmin(email,password){
-  if(!supabaseReady()) throw new Error("Supabase settings are missing. See SETUP_SUPABASE_AR.txt");
-  const data=await supabaseRequest("/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:window.SUPABASE_CONFIG.anonKey,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
-  if(!data || !data.access_token) throw new Error("Admin login failed");
-  adminAccessToken=data.access_token; sessionStorage.setItem("oud_admin_access_token",adminAccessToken);
-}
+let orders = JSON.parse(localStorage.getItem("royal_oud_orders") || "[]");
 let activeCategory = "all";
 let searchTerm = "";
 
 const $ = id => document.getElementById(id);
 const t = key => translations[lang][key] ?? key;
-function save(){ localStorage.setItem("royal_oud_products", JSON.stringify(products)); localStorage.setItem("royal_oud_cart", JSON.stringify(cart)); }
+function save(){ localStorage.setItem("royal_oud_products", JSON.stringify(products)); localStorage.setItem("royal_oud_cart", JSON.stringify(cart)); localStorage.setItem("royal_oud_orders", JSON.stringify(orders)); }
 function normalizePhone(phone){ let p=String(phone||"").replace(/[^\d+]/g,""); if(p.startsWith("+"))p=p.slice(1); if(p.startsWith("0"))p="20"+p.slice(1); return p; }
 function makeOrderCode(){ return "EOM-" + Date.now().toString().slice(-8); }
 function money(n){ if(Number(n) === 0) return lang === "ar" ? "السعر يحدد لاحقًا" : "Price to be announced"; return Number(n).toLocaleString(lang === "ar" ? "ar-EG" : "en-US") + (lang === "ar" ? " جنيه" : " EGP"); }
@@ -172,20 +137,12 @@ function hide(id){$(id)?.classList.remove("show");}
 function buildOrderMessage(o){
   return [t("newOrder"),`Order: ${o.code}`,"",`${t("name")}: ${o.customer.name}`,`${t("phone")}: ${o.customer.phone}`,`${t("email")}: ${o.customer.email||t("notAdded")}`,`${t("area")}: ${o.customer.area}`,`${t("address")}: ${o.customer.address}`,`${t("notes")}: ${o.customer.notes||t("noNotes")}`,"",`${t("ourProducts")}:`,...o.items.map(x=>`- ${x.displayName} × ${x.qty} = ${money(x.price*x.qty)}`),"",`${t("total")}: ${money(o.total)}`].join("\n");
 }
-async function submitOrder(e){
+function submitOrder(e){
   e.preventDefault();
   if(!cart.length)return alert(t("cartEmptyAlert"));
   const o={code:makeOrderCode(),createdAt:new Date().toISOString(),status:"new",items:cart.map(x=>({id:x.id,nameAr:x.nameAr,nameEn:x.nameEn,displayName:productName(x),price:x.price,qty:x.qty})),total:cart.reduce((s,x)=>s+x.price*x.qty,0),customer:{name:$("customerName").value.trim(),phone:$("customerPhone").value.trim(),email:$("customerEmail").value.trim(),area:$("customerArea").value.trim(),address:$("customerAddress").value.trim(),notes:$("customerNotes").value.trim()}};
   if(!o.customer.name||!o.customer.phone||!o.customer.area||!o.customer.address)return alert(t("required"));
-  try {
-    await createOrderOnServer(o);
-    // The shared order is stored in Supabase. localStorage is only for the current cart/UI.
-    orders.unshift(o);
-    save();
-  } catch(err) {
-    console.error(err);
-    return alert(lang === "ar" ? "حصل خطأ أثناء حفظ الطلب. راجع إعدادات قاعدة البيانات في ملف SETUP_SUPABASE_AR.txt ثم حاول مرة أخرى." : "Could not save the order. Check SETUP_SUPABASE_AR.txt and try again.");
-  }
+  orders.unshift(o); save();
   const url=`https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(buildOrderMessage(o))}`;
   $("customerOrderCode").textContent=o.code; $("whatsappLink").href=url; $("orderFormArea").hidden=true; $("orderSuccess").hidden=false;
   cart=[]; save(); renderCart(); renderAdminOrders(); window.open(url,"_blank");
@@ -200,41 +157,15 @@ function deleteProduct(id){ if(!confirm(t("deleteConfirm")))return; products=pro
 function renderAdminOrders(){
   const box=$("adminOrders"); if(!box)return;
   if(!orders.length){box.innerHTML=`<div class="empty-orders">${t("noOrders")}</div>`;return;}
-  box.innerHTML=orders.map(o=>{
-    const statusText = o.status === "accepted" ? t("acceptedOrder") : o.status === "rejected" ? t("rejectedOrder") : t("statusNew");
-    const actions = o.status === "new" ? `<div class="order-actions"><button class="accept-btn" onclick="contactCustomer('${o.code}','accepted')">${t("accept")}</button><button class="reject-btn" onclick="contactCustomer('${o.code}','rejected')">${t("reject")}</button></div>` : `<div class="order-result ${o.status === "accepted" ? "accepted-result" : "rejected-result"}">${statusText}</div>`;
-    return `<div class="order-card"><div class="order-top"><span class="order-code">${o.code}</span><span class="order-status">${o.status === "accepted" ? t("accepted") : o.status === "rejected" ? t("rejected") : t("statusNew")}</span></div><div class="order-info"><div>${t("name")}: ${o.customer.name}</div><div>${t("phone")}: ${o.customer.phone}</div><div>${t("email")}: ${o.customer.email||t("notAdded")}</div><div>${t("area")}: ${o.customer.area}</div><div>${t("address")}: ${o.customer.address}</div><div>${t("total")}: <strong>${money(o.total)}</strong></div></div><div class="order-products"><strong>${t("orderedProducts")}:</strong><div class="ordered-products-list">${o.items.map((x,i)=>`<div class="ordered-product-row"><span>${i+1}. ${x.displayName || x.nameAr || x.nameEn}</span><span>${t("quantityShort")} ${x.qty}</span></div>`).join("")}</div></div>${actions}</div>`;
-  }).join("");
+  box.innerHTML=orders.map(o=>`<div class="order-card"><div class="order-top"><span class="order-code">${o.code}</span><span class="order-status">${o.status === "accepted" ? t("accepted") : o.status === "rejected" ? t("rejected") : t("statusNew")}</span></div><div class="order-info"><div>${t("name")}: ${o.customer.name}</div><div>${t("phone")}: ${o.customer.phone}</div><div>${t("email")}: ${o.customer.email||t("notAdded")}</div><div>${t("area")}: ${o.customer.area}</div><div>${t("address")}: ${o.customer.address}</div><div>${t("total")}: <strong>${money(o.total)}</strong></div></div><div class="order-products"><strong>${t("orderedProducts")}:</strong><div class="ordered-products-list">${o.items.map((x,i)=>`<div class="ordered-product-row"><span>${i+1}. ${x.displayName || x.nameAr || x.nameEn}</span><span>${t("quantityShort")} ${x.qty}</span></div>`).join("")}</div></div><div class="order-actions"><button class="accept-btn" onclick="contactCustomer('${o.code}','accepted')">${t("accept")}</button><button class="reject-btn" onclick="contactCustomer('${o.code}','rejected')">${t("reject")}</button></div></div>`).join("");
 }
-async function contactCustomer(code,status){
-  const o=orders.find(x=>x.code===code); if(!o)return;
-  try { await updateOrderOnServer(code,status); o.status=status; save(); renderAdminOrders(); }
-  catch(err) { console.error(err); return alert(lang === "ar" ? "تعذر تحديث حالة الطلب." : "Could not update the order status."); }
+function contactCustomer(code,status){
+  const o=orders.find(x=>x.code===code); if(!o)return; o.status=status; save(); renderAdminOrders();
   const text=status==="accepted" ? `Hello ${o.customer.name}, your order ${o.code} from El OUD ELMALAKI has been accepted.` : `Hello ${o.customer.name}, we are sorry that we could not accept your order ${o.code} from El OUD ELMALAKI.`;
   const phone=normalizePhone(o.customer.phone); if(phone)window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,"_blank");
 }
 
-async function adminLogin(e){
-  e.preventDefault();
-  const email = $("adminEmail").value.trim();
-  const password = $("adminPassword").value;
-  if(!email || !password) return;
-
-  try {
-    await signInAdmin(email, password);
-    hide("adminLoginModal");
-    show("adminModal");
-    renderAdminProducts();
-    await loadOrdersFromServer();
-  } catch(err) {
-    console.error(err);
-    adminAccessToken = "";
-    sessionStorage.removeItem("oud_admin_access_token");
-    alert(lang === "ar"
-      ? "بيانات الأدمن غير صحيحة أو إعدادات Supabase غير مكتملة."
-      : "The admin email/password is incorrect or Supabase is not configured.");
-  }
-}
+function adminLogin(e){e.preventDefault(); if($("adminPassword").value!==ADMIN_PASSWORD)return alert(t("invalidPass")); hide("adminLoginModal"); show("adminModal"); renderAdminProducts(); renderAdminOrders();}
 
 function addProduct(e){
   e.preventDefault();
@@ -251,7 +182,7 @@ function addProduct(e){
   reader.readAsDataURL(file);
 }
 
-document.addEventListener("DOMContentLoaded",async()=>{
+document.addEventListener("DOMContentLoaded",()=>{
   renderProducts(); renderCart(); renderAdminOrders(); applyLanguage();
   $("languageToggle")?.addEventListener("click",toggleLanguage);
   const topMenuBtn = $("topMenuBtn");
@@ -277,21 +208,6 @@ document.addEventListener("DOMContentLoaded",async()=>{
   $("closeCart")?.addEventListener("click",()=>hide("cartModal"));
   $("adminOpen")?.addEventListener("click",()=>show("adminLoginModal"));
   $("closeAdminLogin")?.addEventListener("click",()=>hide("adminLoginModal"));
-  $("closeAdmin")?.addEventListener("click",()=>{
-    hide("adminModal");
-  });
-  $("clearOrders")?.addEventListener("click",async()=>{
-    if(!confirm(t("clearConfirm"))) return;
-    try { await clearOrdersOnServer(); orders=[]; save(); renderAdminOrders(); }
-    catch(err) { console.error(err); alert(lang === "ar" ? "تعذر مسح الطلبات." : "Could not clear orders."); }
-  });
+  $("closeAdmin")?.addEventListener("click",()=>hide("adminModal"));
+  $("clearOrders")?.addEventListener("click",()=>{if(confirm(t("clearConfirm"))){orders=[];save();renderAdminOrders();}});
 });
-
-// Keep the shared admin order list in sync across devices while the panel is open.
-setInterval(() => {
-  if(adminAccessToken && $("adminModal")?.classList.contains("show")) {
-    loadOrdersFromServer().catch(err => {
-      console.warn("Order refresh failed", err);
-    });
-  }
-}, 12000);

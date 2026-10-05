@@ -28,3 +28,6 @@ https://www.instagram.com/el_oud.el_malaki/
 
 
 تحديث الطلبات المشتركة على GitHub Pages: راجع SETUP_SUPABASE_AR.txt واتبع الخطوات بالترتيب. يجب تعديل supabase-config.js بقيم مشروعك قبل النشر.
+
+
+Version 2042 fix: Admin login now authenticates with Supabase and shared orders are loaded from public.orders on every device.
