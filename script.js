@@ -1,6 +1,6 @@
 const ADMIN_PASSWORD = "mazen";
 // Supabase needs an authenticated user for secure admin access. The email is internal and is never shown to the admin.
-const INTERNAL_ADMIN_EMAIL = "admin@eloudelmalaki.local";
+const INTERNAL_ADMIN_EMAIL = "mrmvip28061980@gmail.com";
 const STORE_WHATSAPP = "201101729109";
 const STORE_PHONE = "01275026300";
 
