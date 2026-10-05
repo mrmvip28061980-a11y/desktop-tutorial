@@ -1,5 +1,4 @@
-const ADMIN_PASSWORD = "mazen";
-// Supabase needs an authenticated user for secure admin access. The email is internal and is never shown to the admin.
+// Supabase uses the internal admin email only in the background. The email is never shown in the login form.
 const INTERNAL_ADMIN_EMAIL = "mrmvip28061980@gmail.com";
 const STORE_WHATSAPP = "201101729109";
 const STORE_PHONE = "01275026300";
@@ -216,7 +215,6 @@ async function contactCustomer(code,status){
 async function adminLogin(e){
   e.preventDefault();
   const password=$("adminPassword").value;
-  if(password!==ADMIN_PASSWORD) return alert(t("invalidPass"));
   try {
     await signInAdmin(INTERNAL_ADMIN_EMAIL,password);
     hide("adminLoginModal");
