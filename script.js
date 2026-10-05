@@ -29,13 +29,13 @@ const translations = {
   ar: {
     dir: "rtl", lang: "ar", siteTag: "عطور شرقية فاخرة", call: "اتصل بنا", admin: "تحكم الإدارة", cart: "السلة",
     heroTitle: "عطور تليق بذوقك", heroText: "اختار عطرك المفضل واستمتع بتجربة تسوق بسيطة وسريعة.", browse: "تصفح المنتجات",
-    ourProducts: "منتجاتنا", latest: "أحدث المنتجات", offers: "عروض مميزة", search: "ابحث عن منتج...", all: "الكل", original: "أوريجينال", blends: "تركيبات", men: "رجالي", women: "حريمي",
+    ourProducts: "منتجاتنا", latest: "أحدث المنتجات", offers: "عروض مميزة", search: "ابحث عن منتج...", categoryMenu: "القائمة", noCategory: "بدون قسم", all: "الكل", original: "أوريجينال", blends: "تركيبات", men: "رجالي", women: "حريمي",
     add: "أضف للسلة", cartTitle: "سلة المشتريات", emptyCart: "السلة فارغة", total: "الإجمالي", yourData: "بيانات طلبك", name: "الاسم", phone: "رقم الموبايل", email: "الإيميل", area: "المنطقة", address: "العنوان بالتفصيل", notes: "ملاحظات إضافية", namePh: "اكتب اسمك", phonePh: "01xxxxxxxxx", emailPh: "example@gmail.com", areaPh: "مثال: مدينة نصر", addressPh: "الشارع، العمارة، الدور، الشقة", notesPh: "أي ملاحظات على الطلب", checkout: "تأكيد الطلب والتواصل عبر واتساب", registered: "تم تسجيل الطلب", codeText: "كود الطلب الخاص بك:", waReady: "تم تجهيز رسالة واتساب بالطلب.", openWa: "فتح واتساب والتواصل مع المتجر", login: "دخول الإدارة", adminEmail: "الإيميل", password: "كلمة المرور", enter: "دخول", panel: "لوحة التحكم", manage: "إدارة المنتجات والطلبات", currentProducts: "المنتجات الحالية", addProduct: "إضافة منتج جديد", productNameAr: "اسم المنتج بالعربي", productNameEn: "اسم المنتج بالإنجليزي", price: "السعر", oldPrice: "السعر القديم", discount: "الخصم %", category: "القسم", gender: "الفئة", image: "صورة المنتج", chooseImage: "اختار صورة من جهازك", addProductBtn: "إضافة المنتج", originalOpt: "أوريجينال", noCategoryOpt: "بدون قسم", blendsOpt: "تركيبات", menOpt: "رجالي", womenOpt: "حريمي", unisexOpt: "رجالي وحريمي", delete: "حذف", orders: "الطلبات", orderedProducts: "المنتجات المطلوبة", deviceOrders: "طلبات هذا الجهاز", clear: "مسح الطلبات", noOrders: "لا توجد طلبات محفوظة على هذا الجهاز.", accept: "قبول وإرسال واتساب", reject: "رفض وإرسال واتساب", invalidPass: "كلمة السر غير صحيحة", fillProduct: "اكتب اسم المنتج بالعربي والسعر واختر صورة", imageRequired: "اختار صورة للمنتج", cartEmptyAlert: "السلة فارغة", required: "من فضلك املأ الاسم ورقم الهاتف والمنطقة والعنوان", deleteConfirm: "هل تريد حذف المنتج؟", clearConfirm: "مسح الطلبات المحفوظة على هذا الجهاز؟", remove: "حذف", old: "القديم", notAdded: "غير مضاف", noNotes: "لا يوجد", newOrder: "طلب جديد - El OUD ELMALAKI", quantityShort: "الكمية:", statusNew: "جديد", accepted: "مقبول", rejected: "مرفوض", acceptedOrder: "تم قبول الطلب", rejectedOrder: "تم رفض الطلب", language: "English", footer: "عطور وعود فاخرة"
   },
   en: {
     dir: "ltr", lang: "en", siteTag: "Luxury Oud & Perfumes", call: "Call us", admin: "Admin", cart: "Cart",
     heroTitle: "Perfumes that match your taste", heroText: "Choose your favorite fragrance and enjoy a simple, fast shopping experience.", browse: "Browse products",
-    ourProducts: "Our Products", latest: "Latest Products", offers: "Special Offers", search: "Search for a product...", all: "All", original: "Original", blends: "Blends", men: "Men", women: "Women",
+    ourProducts: "Our Products", latest: "Latest Products", offers: "Special Offers", search: "Search for a product...", categoryMenu: "Menu", noCategory: "No category", all: "All", original: "Original", blends: "Blends", men: "Men", women: "Women",
     add: "Add to cart", cartTitle: "Shopping Cart", emptyCart: "Your cart is empty", total: "Total", yourData: "Your Order Details", name: "Name", phone: "Mobile", email: "Email", area: "Area", address: "Full address", notes: "Additional notes", namePh: "Your name", phonePh: "01xxxxxxxxx", emailPh: "example@gmail.com", areaPh: "e.g. Nasr City", addressPh: "Street, building, floor, apartment", notesPh: "Any notes about the order", checkout: "Confirm order & contact us on WhatsApp", registered: "Order registered", codeText: "Your order code:", waReady: "Your WhatsApp order message is ready.", openWa: "Open WhatsApp", login: "Admin Login", adminEmail: "Email", password: "Password", enter: "Login", panel: "Control Panel", manage: "Products & Orders", currentProducts: "Current Products", addProduct: "Add New Product", productNameAr: "Product name in Arabic", productNameEn: "Product name in English", price: "Price", oldPrice: "Old price", discount: "Discount %", category: "Category", gender: "Gender", image: "Product image", chooseImage: "Choose an image from your device", addProductBtn: "Add Product", originalOpt: "Original", noCategoryOpt: "No category", blendsOpt: "Blends", menOpt: "Men", womenOpt: "Women", unisexOpt: "Men & Women", delete: "Delete", orders: "Orders", orderedProducts: "Ordered Products", deviceOrders: "Orders on this device", clear: "Clear orders", noOrders: "No orders saved on this device.", accept: "Accept & WhatsApp", reject: "Reject & WhatsApp", invalidPass: "Incorrect password", fillProduct: "Enter the Arabic name and price, then choose an image", imageRequired: "Choose a product image", cartEmptyAlert: "Your cart is empty", required: "Please fill in name, mobile, area and address", deleteConfirm: "Delete this product?", clearConfirm: "Clear orders saved on this device?", remove: "Remove", old: "Old", notAdded: "Not added", noNotes: "None", newOrder: "New Order - El OUD ELMALAKI", quantityShort: "Qty:", statusNew: "New", accepted: "Accepted", rejected: "Rejected", acceptedOrder: "Order Accepted", rejectedOrder: "Order Rejected", language: "العربية", footer: "Luxury Oud & Perfumes"
   }
 };
@@ -148,7 +148,8 @@ function filteredProducts(){
     const isMen = ["men", "male", "رجالي"].includes(gender);
     const isWomen = ["women", "female", "حريمي"].includes(gender);
     const matchesGender = activeCategory === "men" ? isMen : activeCategory === "women" ? isWomen : false;
-    const matchesCategory = activeCategory === "all" || p.category === activeCategory || matchesGender;
+    const matchesNoCategory = activeCategory === "noCategory" && !p.category;
+    const matchesCategory = activeCategory === "all" || p.category === activeCategory || matchesGender || matchesNoCategory;
     return matchesSearch && matchesCategory;
   });
 }
@@ -269,7 +270,30 @@ document.addEventListener("DOMContentLoaded",async()=>{
     topMenuDropdown.hidden = true;
   });
   $("searchInput")?.addEventListener("input",e=>{searchTerm=e.target.value;renderProducts();});
-  document.querySelectorAll(".filter-btn").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");activeCategory=btn.dataset.filter;renderProducts();}));
+  const categoryBtn = $("categoryMenuBtn");
+  const categoryDropdown = $("categoryMenuDropdown");
+  categoryBtn?.addEventListener("click", () => {
+    const isOpen = !categoryDropdown.hidden;
+    categoryDropdown.hidden = isOpen;
+    categoryBtn.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  categoryDropdown?.querySelectorAll(".filter-btn").forEach(btn => btn.addEventListener("click", () => {
+    categoryDropdown.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeCategory = btn.dataset.filter;
+    categoryBtn.querySelector("[data-i18n='categoryMenu']").textContent = btn.textContent;
+    categoryDropdown.hidden = true;
+    categoryBtn.setAttribute("aria-expanded", "false");
+    renderProducts();
+  }));
+
+  document.addEventListener("click", e => {
+    if (categoryDropdown && !categoryDropdown.hidden && !e.target.closest(".category-menu")) {
+      categoryDropdown.hidden = true;
+      categoryBtn?.setAttribute("aria-expanded", "false");
+    }
+  });
   $("orderForm")?.addEventListener("submit",submitOrder);
   $("adminLoginForm")?.addEventListener("submit",adminLogin);
   $("productForm")?.addEventListener("submit",addProduct);

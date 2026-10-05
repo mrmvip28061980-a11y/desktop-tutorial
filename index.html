@@ -42,12 +42,20 @@
 
     <div class="catalog-tools">
       <div class="search-box"><span>⌕</span><input id="searchInput" data-i18n-placeholder="search" placeholder="ابحث عن منتج..."></div>
-      <div class="filters">
-        <button class="filter-btn active" data-filter="all" data-i18n="all">الكل</button>
-        <button class="filter-btn" data-filter="original" data-i18n="original">أوريجينال</button>
-        <button class="filter-btn" data-filter="blends" data-i18n="blends">تركيبات</button>
-        <button class="filter-btn" data-filter="men" data-i18n="men">رجالي</button>
-        <button class="filter-btn" data-filter="women" data-i18n="women">حريمي</button>
+      <div class="category-menu">
+        <button id="categoryMenuBtn" class="category-menu-btn" type="button" aria-expanded="false">
+          <span class="category-menu-icon">☰</span>
+          <span data-i18n="categoryMenu">القائمة</span>
+          <span class="category-menu-arrow">⌄</span>
+        </button>
+        <div id="categoryMenuDropdown" class="category-menu-dropdown" hidden>
+          <button class="filter-btn active" data-filter="all" data-i18n="all">الكل</button>
+          <button class="filter-btn" data-filter="noCategory" data-i18n="noCategory">بدون قسم</button>
+          <button class="filter-btn" data-filter="original" data-i18n="original">أوريجينال</button>
+          <button class="filter-btn" data-filter="blends" data-i18n="blends">تركيبات</button>
+          <button class="filter-btn" data-filter="men" data-i18n="men">رجالي</button>
+          <button class="filter-btn" data-filter="women" data-i18n="women">حريمي</button>
+        </div>
       </div>
     </div>
 

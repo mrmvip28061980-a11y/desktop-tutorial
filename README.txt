@@ -31,3 +31,6 @@ https://www.instagram.com/el_oud.el_malaki/
 
 
 Version 2042 fix: Admin login now authenticates with Supabase and shared orders are loaded from public.orders on every device.
+
+
+Version 2044: product categories are now inside one red dropdown menu like the requested design.
