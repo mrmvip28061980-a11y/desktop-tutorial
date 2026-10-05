@@ -1,4 +1,6 @@
 const ADMIN_PASSWORD = "mazen";
+// Supabase needs an authenticated user for secure admin access. The email is internal and is never shown to the admin.
+const INTERNAL_ADMIN_EMAIL = "admin@eloudelmalaki.local";
 const STORE_WHATSAPP = "201101729109";
 const STORE_PHONE = "01275026300";
 
@@ -211,7 +213,21 @@ async function contactCustomer(code,status){
   const phone=normalizePhone(o.customer.phone); if(phone)window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,"_blank");
 }
 
-function adminLogin(e){e.preventDefault(); if($("adminPassword").value!==ADMIN_PASSWORD)return alert(t("invalidPass")); hide("adminLoginModal"); show("adminModal"); renderAdminProducts(); renderAdminOrders();}
+async function adminLogin(e){
+  e.preventDefault();
+  const password=$("adminPassword").value;
+  if(password!==ADMIN_PASSWORD) return alert(t("invalidPass"));
+  try {
+    await signInAdmin(INTERNAL_ADMIN_EMAIL,password);
+    hide("adminLoginModal");
+    show("adminModal");
+    renderAdminProducts();
+    await loadOrdersFromServer();
+  } catch(err) {
+    console.error(err);
+    alert(lang === "ar" ? "تعذر تسجيل دخول الإدارة. تأكد من إعداد حساب الأدمن في Supabase." : "Admin login failed. Check the admin account in Supabase.");
+  }
+}
 
 function addProduct(e){
   e.preventDefault();
