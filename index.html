@@ -50,8 +50,12 @@
         </button>
         <div id="categoryMenuDropdown" class="category-menu-dropdown" hidden style="position:absolute;top:calc(100% + 7px);right:0;width:100%;min-width:210px;background:#fff;border:1px solid #e1d8c9;border-radius:10px;padding:6px;box-shadow:0 12px 28px rgba(0,0,0,.16);z-index:10000;">
           <button class="filter-btn active" data-filter="all" data-i18n="all">الكل</button>
+          <button class="filter-btn" data-filter="noCategory" data-i18n="noCategory">بدون قسم</button>
           <button class="filter-btn" data-filter="original" data-i18n="original">أوريجينال</button>
-          <button class="filter-btn" data-filter="unisex" data-i18n="unisex">رجالي</button>
+          <button class="filter-btn" data-filter="blends" data-i18n="blends">تركيبات</button>
+          <button class="filter-btn" data-filter="men" data-i18n="men">رجالي</button>
+          <button class="filter-btn" data-filter="women" data-i18n="women">حريمي</button>
+          <button class="filter-btn" data-filter="unisex" data-i18n="unisex">رجالي وحريمي</button>
         </div>
       </div>
     </div>
@@ -102,7 +106,7 @@
         <label data-i18n="productNameAr">اسم المنتج بالعربي</label><input id="newProductNameAr" required>
         <label data-i18n="productNameEn">اسم المنتج بالإنجليزي</label><input id="newProductNameEn">
         <div class="form-grid"><div><label data-i18n="price">السعر</label><input id="newProductPrice" type="number" min="0" required></div><div><label data-i18n="oldPrice">السعر القديم</label><input id="newProductOldPrice" type="number" min="0"></div><div><label data-i18n="discount">الخصم %</label><input id="newProductDiscount" type="number" min="0" max="100"></div></div>
-        <div class="form-grid"><div><label data-i18n="category">القسم</label><select id="newProductCategory"><option value="" data-i18n="noCategoryOpt">بدون قسم</option><option value="original" data-i18n="originalOpt">أوريجينال</option></select></div><div><label data-i18n="gender">الفئة</label><select id="newProductGender"><option value="men" data-i18n="menOpt">رجالي</option><option value="women" data-i18n="womenOpt">حريمي</option><option value="unisex" data-i18n="unisexOpt">رجالي</option></select></div></div>
+        <div class="form-grid"><div><label data-i18n="category">القسم</label><select id="newProductCategory"><option value="" data-i18n="noCategoryOpt">بدون قسم</option><option value="original" data-i18n="originalOpt">أوريجينال</option><option value="blends" data-i18n="blendsOpt">تركيبات</option></select></div><div><label data-i18n="gender">الفئة</label><select id="newProductGender"><option value="men" data-i18n="menOpt">رجالي</option><option value="women" data-i18n="womenOpt">حريمي</option><option value="unisex" data-i18n="unisexOpt">رجالي وحريمي</option></select></div></div>
         <label data-i18n="image">صورة المنتج</label><input id="newProductImage" type="file" accept="image/*" required><small data-i18n="chooseImage">اختار صورة من جهازك</small>
         <button class="primary-btn" type="submit" data-i18n="addProductBtn">إضافة المنتج</button>
       </form>
